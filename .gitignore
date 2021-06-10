@@ -1,0 +1,7 @@
+__pycache__
+.next
+node_modeules
+out
+poetry.lock
+.vscode
+package-lock.json
