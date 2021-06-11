@@ -7,6 +7,8 @@ authors = ["saxenabhishek <as7122000@gmail.com>"]
 [tool.poetry.dependencies]
 python = "^3.9"
 fastapi = {extras = ["all"], version = "^0.65.2"}
+flake8 = "^3.9.2"
+black = "^21.6b0"
 
 [tool.poetry.dev-dependencies]
 pytest = "^5.2"
