@@ -5,3 +5,4 @@ out
 poetry.lock
 .vscode
 package-lock.json
+.env
