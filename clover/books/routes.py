@@ -1,14 +1,10 @@
 from clover.books.frappeAPI import AllBookPages, TisBook
 from fastapi import APIRouter, HTTPException
-import requests
-
-FrappeBase = "https://frappe.io/api/method/frappe-library"
 
 router = APIRouter()
 
 Allpages = AllBookPages()
 tis = TisBook()
-
 
 @router.get("/")
 async def get_books(page: int = 1):
@@ -24,3 +20,4 @@ async def get_this_book(isbn: str):
     except ValueError:
         raise HTTPException(status_code=404, detail="Item not found")
     return {"message": data}
+
