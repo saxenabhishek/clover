@@ -4,11 +4,11 @@ import A_book from "../components/A_book";
 
 export default function books() {
   let [books, setBooks] = useState([]);
-  let [page, setPage] = useState(400);
+  let [page, setPage] = useState(1);
   let [next, hasnext] = useState(false);
   let [loading, setLoading] = useState(true);
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     api
       .get("/books", {
         params: {
@@ -20,11 +20,10 @@ export default function books() {
         setBooks(data.data["message"]);
       })
       .catch((err) => {
-        console.log(err)
-        setLoading(false)
-        hasnext(true)
-        setPage(page - 1)
-
+        console.log(err);
+        setLoading(false);
+        hasnext(true);
+        setPage(page - 1);
       });
   }, [page]);
 
@@ -53,14 +52,14 @@ export default function books() {
       <button
         disabled={isPrev()}
         onClick={() => {
-          hasnext(false)
+          hasnext(false);
           setPage(page - 1);
         }}
       >
         Prev
       </button>
       <button
-      disabled = {next}
+        disabled={next}
         onClick={() => {
           setPage(page + 1);
         }}
