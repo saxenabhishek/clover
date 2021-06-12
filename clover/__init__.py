@@ -1,4 +1,5 @@
 __version__ = "0.1.0"
+IS_DEV = True
 from dotenv import load_dotenv
 
 load_dotenv(".env")
