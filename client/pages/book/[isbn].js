@@ -3,8 +3,6 @@ import api from "../../components/api";
 
 export default function A_book(props) {
   const values = props.data["message"];
-  console.log(props, !!!values);
-
   if (!!!values) return <p>Not Found</p>;
 
   return (
@@ -25,10 +23,9 @@ export async function getServerSideProps(context) {
       props: { data },
     };
   } catch (e) {
-    console.log(e);
     const data = [];
     return {
       props: { data },
     };
-  } 
+  }
 }
