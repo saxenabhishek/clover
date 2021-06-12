@@ -47,6 +47,16 @@ class AllBookPages:
         return books[lowercut:uppercut]
 
 
+class TisBook:
+    FrappeBase = "https://frappe.io/api/method/frappe-library"
+
+    def get(self, isbn: str):
+        data = requests.get(self.FrappeBase, params={"isbn": isbn}).json()["message"]
+        if len(data) != 1:
+            raise ValueError("Not a unique isbn number")
+        return data[0]
+
+
 if __name__ == "__main__":
     vendor = AllBookPages()
     print("got Back", len(vendor.get_page(1)))
