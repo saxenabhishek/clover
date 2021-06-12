@@ -6,8 +6,6 @@ import random
 class AllBookPages:
     per_page = 10
     totalBooks = 4000
-    current_page = 200
-    ahead = True
     FrappeBase = "https://frappe.io/api/method/frappe-library"
 
     def __len__(self):
