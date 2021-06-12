@@ -2,6 +2,7 @@ from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
 from clover import book_router
+from clover import user_router
 
 app = FastAPI()
 
@@ -17,6 +18,7 @@ app.add_middleware(
 )
 
 app.include_router(book_router, prefix="/api/books", tags=["books"])
+app.include_router(user_router, prefix="/api/users", tags=["Users"])
 
 
 @app.get("/apis")

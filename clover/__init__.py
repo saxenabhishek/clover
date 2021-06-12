@@ -5,4 +5,5 @@ from dotenv import load_dotenv
 load_dotenv(".env")
 
 from clover.books.routes import router as book_router
+from clover.users.routes import router as user_router
 from clover.app import app
