@@ -26,16 +26,18 @@ export default function A_book({ values }) {
     router.push("/issue");
   }
   return (
-    <div className="bg-custBlue3 mx-5 text-custWhite my-1 py-5 px-3 rounded-md">
+    <div className="bg-custBlue3 mx-5 text-custWhite my-1 py-7 px-3 rounded-lg">
       <div className={"p-2 h-36 rounded-md rounded-r-xl "}>
         <p className="text-xl font-semibold">{titleHelper(values.title)}</p>
         <p className="text-lg font-light">{values.authors}</p>
       </div>
       <p>Rating : {values.average_rating}</p>
-      <NavBut vals={{ link: "/book/" + values.isbn, title: "Details" }} />
-      <NavButIss
-        vals={{ link: "/issue", title: "Issue", click: handelClick }}
-      />
+      <div className="mx-auto">
+        <NavBut vals={{ link: "/book/" + values.isbn, title: "Details" }} />
+        <NavButIss
+          vals={{ link: "/issue", title: "Issue", click: handelClick }}
+        />
+      </div>
       <br />
     </div>
   );
@@ -43,7 +45,7 @@ export default function A_book({ values }) {
   function NavBut({ vals }) {
     return (
       <Link href={vals.link}>
-        <button className="bg-custRed rounded-lg mx-1 p-1 text-custWhite w-15">
+        <button className="bg-custBlue rounded-md mx-1 my-1 p-2 text-custBlue3 w-25">
           {vals.title}
         </button>
       </Link>
@@ -54,7 +56,7 @@ export default function A_book({ values }) {
       <Link href={vals.link}>
         <button
           onClick={vals.click}
-          className="bg-custRed rounded-lg mx-1 p-1 text-custWhite w-15"
+          className="bg-custBlue2 hover:bg-custRed rounded-md mx-1 my-1 p-2 text-custWhite w-25"
         >
           {vals.title}
         </button>
