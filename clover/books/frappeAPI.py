@@ -4,7 +4,7 @@ import random
 
 
 class AllBookPages:
-    per_page = 10
+    per_page = 16
     totalBooks = 4000
     FrappeBase = "https://frappe.io/api/method/frappe-library"
 
