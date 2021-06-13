@@ -1,9 +1,9 @@
 from typing import List, Optional
-from pydantic import Field
-from fastapi import APIRouter, Depends, status
-from pydantic.main import BaseModel
-from clover.mongo.models import User
+from bson import ObjectId
 from clover.mongo.driver import userCON
+from clover.mongo.models import PyObjectId, User
+from fastapi import APIRouter, Depends, status
+from pydantic import Field
 
 router = APIRouter()
 
@@ -22,18 +22,16 @@ async def make_user(deets: User = Depends(hashpass)):
 
 
 class userRes(User):
-    id: str = Field(None, alias="_id")
+    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+
+    class Config:
+        allow_population_by_field_name = True
+        arbitrary_types_allowed = True
+        json_encoders = {ObjectId: str}
 
 
-class listUserRes(BaseModel):
-    mess: List[userRes]
-
-
-@router.get("/get_users", response_model=listUserRes)
-async def get_all_users(name: Optional[str] = None):
+@router.get("/get_users", response_model=List[userRes])
+async def get_all_users(name: Optional[str] = ""):
     L = userCON.find({"name": {"$regex": f".*{name}.*"}})
-    x = []
-    for i in await L.to_list(length=10):
-        i["_id"] = str(i["_id"])
-        x.append(i)
-    return {"mess": x}
+    res = [userRes(**i) for i in await L.to_list(length=10)]
+    return res
