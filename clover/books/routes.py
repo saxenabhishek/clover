@@ -1,13 +1,11 @@
 from datetime import datetime
-from pydantic.main import BaseModel
-from starlette.status import HTTP_404_NOT_FOUND
-from bson import ObjectId
-from starlette.types import Message
 
+from bson import ObjectId
 from clover.books.frappeAPI import AllBookPages, TisBook
 from clover.mongo.driver import CheckOutCON, recordsCON
 from clover.mongo.models import CheckOut, CheckOut_arr, Record
-from fastapi import APIRouter, HTTPException
+from fastapi import APIRouter, HTTPException, status
+from pydantic import BaseModel
 
 router = APIRouter()
 
@@ -20,7 +18,7 @@ secRate = 0.2
 @router.get("/")
 async def get_books(page: int = 1):
     if len(data := Allpages.get_page(page)) == 0:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND , detail="Item not found")
     return {"message": data}
 
 
@@ -29,13 +27,15 @@ async def get_this_book(isbn: str):
     try:
         data = tis.get(isbn)
     except ValueError:
-        raise HTTPException(status_code=404, detail="Item not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
     return {"message": data}
 
 
-@router.post("/issue")
+@router.post("/issue",status_code=status.HTTP_201_CREATED)
 async def give_this_book(rec: Record):
     rec.when = datetime.now()
+    rec.complete = False
+    rec.till = None
     item = CheckOut_arr(userId=rec.userId, when=rec.when)
     if await CheckOutCON.find_one({"isbn": rec.isbn}):
         res = await CheckOutCON.update_one({"isbn": rec.isbn}, {"$inc": {"numb": 1}, "$push": {"issues": item.dict()}})
@@ -64,4 +64,4 @@ async def take_back_book(deets: returnDeets):
         )
         return {"message": {"cost": cost}}
     else:
-        raise HTTPException(status_code=HTTP_404_NOT_FOUND, detail="No transaction found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No transaction found")
