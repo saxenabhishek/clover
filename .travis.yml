@@ -1,7 +1,8 @@
 os: linux
 jobs:
   include:
-    - language: node_js
+    - stage: Test
+      language: node_js
       node_js:
         - lts/*
       cache:
@@ -11,7 +12,8 @@ jobs:
         - cd client
         - npm install
         - npm run build
-    - language: python
+    - stage: Test
+      language: python
       env:
         - mongoURI=$mongoURI
       python:
@@ -19,7 +21,9 @@ jobs:
       install: pip install -r requirements.txt
       script:
         - pytest
-    - deploy:
+    - stage: Deploy
+      script: skip
+      deploy:
         provider: script
         skip_cleanup: false
         script: ssh -o "StrictHostKeyChecking no" $ssh_server $ssh_command
