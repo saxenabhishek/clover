@@ -1,7 +1,7 @@
 import motor.motor_asyncio
 import os
 
-MONGO_DETAILS = os.environ.get("monogoURI")
+MONGO_DETAILS = os.environ.get("mongoURI")
 
 client = motor.motor_asyncio.AsyncIOMotorClient(MONGO_DETAILS)
 

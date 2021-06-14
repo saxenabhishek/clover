@@ -12,6 +12,8 @@ jobs:
         npm install
         npm run build
     - language: python
+      env:
+        - mongoURI=$mongoURI
       python:
       - "3.9"
       install:
