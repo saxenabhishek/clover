@@ -2,8 +2,8 @@ module.exports = {
   apps: [
     {
       name: "FastAPI backend",
-      interpreter: "python3",
-      interpreter_args: "-m clover",
+      interpreter: "/bin/bash",
+      script: "flaskapi.sh",
     },
     {
       name: "Next JS ",
