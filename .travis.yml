@@ -1,24 +1,20 @@
-matrix:
-  include:      
-    language: node_js
-    node_js:
-      - lts/*
-    cache:
-      directories:
-        - node_modules
-    script:
-      - cd client
-      - npm i
-      - npm run build
-    os:
-      - linux
-
-    language: python
-    python:
-    - "3.9"
-    install:
-      pip install -r requirements.txt
-    script:
-    - pytest
-    os:
-    - linux
+os: linux
+jobs:
+  include:
+    - language: node_js
+      node_js:
+        - lts/*
+      cache:
+        directories:
+          - node_modules
+      script:
+        cd client
+        npm install
+        npm run build
+    - language: python
+      python:
+      - "3.9"
+      install:
+        pip install -r requirements.txt
+      script:
+      - pytest
