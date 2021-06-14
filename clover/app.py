@@ -23,9 +23,9 @@ app.include_router(user_router, prefix="/api/users", tags=["Users"])
 app.include_router(record_router, prefix="/api/recs", tags=["Records"])
 
 
-@app.get("/apis")
-async def f():
-    return "404 idhaar nahi hai"
+@app.get("/api")
+async def test_Alive():
+    return "Backend API is up"
 
 
 # app.mount("/", StaticFiles(directory="./client/out", html=True), name="static")
