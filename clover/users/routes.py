@@ -32,6 +32,6 @@ class userRes(User):
 
 @router.get("/get_users", response_model=List[userRes])
 async def get_all_users(name: Optional[str] = ""):
-    L = userCON.find({"name": {"$regex": f".*{name}.*"}})
+    L = userCON.find({"name": {"$regex": f".*{name}.*$", "$options": "-i"}})
     res = [userRes(**i) for i in await L.to_list(length=10)]
     return res
