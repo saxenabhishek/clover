@@ -1,5 +1,7 @@
 from typing import List, Optional
 from bson import ObjectId
+from fastapi.exceptions import HTTPException
+from starlette.status import HTTP_400_BAD_REQUEST
 from clover.mongo.driver import userCON
 from clover.mongo.models import PyObjectId, User
 from fastapi import APIRouter, Depends, status
@@ -17,6 +19,8 @@ async def hashpass(deets: User):
 
 @router.post("/make_user", status_code=status.HTTP_201_CREATED)
 async def make_user(deets: User = Depends(hashpass)):
+    if d := await userCON.find_one({"name": deets.name, "passw": deets.passw}):
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="User Aleady exists")
     user = await userCON.insert_one(deets.dict())
     return {"inserted_id": str(user.inserted_id)}
 

@@ -7,11 +7,11 @@ from bson import ObjectId
 class User(BaseModel):
     name: str
     passw: str
-    debt: int = 0
-    admin: bool = False
+    debt: Optional[int] = 0
+    admin: Optional[bool] = False
 
     class Config:
-        schema_extra = {"example": {"name": "Abhishek", "passw": "SuperSecret", "debt": 45, "admin": False}}
+        schema_extra = {"example": {"name": "Abhishek", "passw": "SuperSecret", "admin": False}}
 
 
 class CheckOut_arr(BaseModel):
