@@ -22,6 +22,9 @@ export function Bookprovider(props) {
       })
       .then((res) => {
         console.log(res.status);
+        let t = tra
+        t["book"] = null
+        setTra(t)
       });
   }
   return (
