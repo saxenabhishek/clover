@@ -8,4 +8,5 @@ package-lock.json
 .env
 *.pem
 *.pyc
-id_rsa*
+id_rsa.pub
+id_rsa
