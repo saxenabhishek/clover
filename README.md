@@ -5,7 +5,7 @@ Clover is a library management software. It interacts with Frappe's API of 4000 
 ## 📺 Preview
 
 <div>
-  <img align = "center" src="imgs\1.png">
+  <img align = "center" src="imgs\landing.png">
 </div>
 <br/>
 <div>
