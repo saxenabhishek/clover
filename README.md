@@ -4,9 +4,40 @@ Clover is a library management software. It interacts with Frappe's API of 4000 
 
 ## 📺 Preview
 
-<div align="center">
-  <img alt="Screenshot" src="docs/preview.png" />
+<div>
+  <img align = "center" src="imgs\1.png">
 </div>
+<br/>
+<div>
+  <h3>View all available books</h3>
+  <img align = "center" src="imgs\2.png">
+</div>
+<br/>
+<div>
+<h3>Issue a book</h3>
+  <img align = "center" src="imgs\3.png">
+</div>
+<br/>
+<div>
+<h3>Searching for users</h3>
+  <img align = "center" src="imgs\4.png">
+</div>
+<br/>
+<div>
+  <h3>Currently checked-out books</h3>
+  <img align = "center" src="imgs\5.png">
+</div>
+<br/>
+<div>
+<h3>Returning a book</h3>
+  <img align = "center" src="imgs\6.png">
+</div>
+<br/>
+<div>
+<h3>All the api routes</h3>
+  <img align = "center" src="imgs\7.png">
+</div>
+<br/>
 
 ## 📌 Prerequisites
 
@@ -82,7 +113,7 @@ Clover is available under the MIT license. See the LICENSE file for more info.
 
 ## 🤝 Contributing
 
-Please read [`Contributing.md`](https://github.com/SRM-IST-KTR/template/blob/main/Contributing.md) for details on our code of conduct, and the process for submitting pull requests to us.
+Please read [`Contributing.md`](https://github.com/saxenabhishek/clover/blob/main/CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## ⚙️ Maintainers
 
