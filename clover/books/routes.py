@@ -12,14 +12,27 @@ router = APIRouter()
 Allpages = AllBookPages()
 tis = TisBook()
 
-secRate = 0.2
+secRate = 0.002
 
 
 @router.get("/")
 async def get_books(page: int = 1):
     if len(data := Allpages.get_page(page)) == 0:
-        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND , detail="Item not found")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
     return {"message": data}
+
+
+@router.get("/ct")
+async def get_money_idea(traId: str):
+    if d := await recordsCON.find_one({"_id": ObjectId(traId)}):
+        d = Record(**d)
+        delta = datetime.now() - d.when
+        print(delta.total_seconds())
+        cost = secRate * delta.total_seconds()
+        return {"Message": {"cost": cost}}
+    else:
+        print("hello")
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No transaction found")
 
 
 @router.get("/{isbn}")
@@ -31,7 +44,7 @@ async def get_this_book(isbn: str):
     return {"message": data}
 
 
-@router.post("/issue",status_code=status.HTTP_201_CREATED)
+@router.post("/issue", status_code=status.HTTP_201_CREATED)
 async def give_this_book(rec: Record):
     rec.when = datetime.now()
     rec.complete = False
