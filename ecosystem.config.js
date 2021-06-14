@@ -2,7 +2,7 @@ module.exports = {
   apps: [
     {
       name: "FastAPI backend",
-      interpreter: "python",
+      interpreter: "python3",
       interpreter_args: "-m clover",
     },
     {
