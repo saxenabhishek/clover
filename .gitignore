@@ -7,3 +7,5 @@ poetry.lock
 package-lock.json
 .env
 *.pem
+*.pyc
+id_rsa*
