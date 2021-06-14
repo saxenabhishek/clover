@@ -6,3 +6,4 @@ poetry.lock
 .vscode
 package-lock.json
 .env
+*.pem
