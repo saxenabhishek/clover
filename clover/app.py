@@ -1,3 +1,4 @@
+from clover.mongo.driver import close_db, connect_db
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from fastapi.middleware.cors import CORSMiddleware
@@ -5,7 +6,10 @@ from clover import book_router
 from clover import user_router
 from clover import record_router
 
-app = FastAPI()
+app = FastAPI(title="backend for clover")
+
+app.add_event_handler("startup",connect_db)
+app.add_event_handler("shutdown",close_db)
 
 origins = [
     "*",
