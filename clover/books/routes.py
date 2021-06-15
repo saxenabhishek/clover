@@ -2,7 +2,7 @@ from datetime import datetime
 
 from bson import ObjectId
 from clover.books.frappeAPI import AllBookPages, TisBook
-from clover.mongo.driver import CheckOutCON, recordsCON
+from clover.mongo.driver import get_CheckOutCON, get_recordsCON
 from clover.mongo.models import CheckOut, CheckOut_arr, PyObjectId, Record
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
@@ -24,7 +24,7 @@ async def get_books(page: int = 1):
 
 @router.get("/ct")
 async def get_money_idea(traId: PyObjectId):
-    if d := await recordsCON.find_one({"_id": ObjectId(traId)}):
+    if d := await get_recordsCON().find_one({"_id": ObjectId(traId)}):
         d = Record(**d)
         delta = datetime.now() - d.when
         print(delta.total_seconds())
@@ -49,12 +49,14 @@ async def give_this_book(rec: Record):
     rec.complete = False
     rec.till = None
     item = CheckOut_arr(userId=rec.userId, when=rec.when)
-    if await CheckOutCON.find_one({"isbn": rec.isbn}):
-        res = await CheckOutCON.update_one({"isbn": rec.isbn}, {"$inc": {"numb": 1}, "$push": {"issues": item.dict()}})
+    if await get_CheckOutCON().find_one({"isbn": rec.isbn}):
+        res = await get_CheckOutCON().update_one(
+            {"isbn": rec.isbn}, {"$inc": {"numb": 1}, "$push": {"issues": item.dict()}}
+        )
     else:
         entry = CheckOut(isbn=rec.isbn, issues=[item], numb=1)
-        res = await CheckOutCON.insert_one(entry.dict())
-    res2 = await recordsCON.insert_one(rec.dict())
+        res = await get_CheckOutCON().insert_one(entry.dict())
+    res2 = await get_recordsCON().insert_one(rec.dict())
     return {"message": str(res2.inserted_id)}
 
 
@@ -64,14 +66,14 @@ class returnDeets(BaseModel):
 
 @router.put("/return")
 async def take_back_book(deets: returnDeets):
-    if d := await recordsCON.find_one({"_id": ObjectId(deets.traId)}):
+    if d := await get_recordsCON().find_one({"_id": ObjectId(deets.traId)}):
         d = Record(**d)
-        res = await CheckOutCON.update_one(
+        res = await get_CheckOutCON().update_one(
             {"isbn": d.isbn}, {"$inc": {"numb": -1}, "$pull": {"issues": {"userId": d.userId}}}
         )
         delta = datetime.now() - d.when
         cost = secRate * delta.total_seconds()
-        res2 = await recordsCON.update_one(
+        res2 = await get_recordsCON().update_one(
             {"_id": ObjectId(deets.traId)}, {"$set": {"till": datetime.now(), "complete": True, "debt": cost}}
         )
         return {"message": {"cost": cost}}
