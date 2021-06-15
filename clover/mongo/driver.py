@@ -1,3 +1,4 @@
+import clover
 from typing import Tuple
 from motor.motor_asyncio import AsyncIOMotorClient, AsyncIOMotorDatabase, AsyncIOMotorCollection
 import os
@@ -6,43 +7,35 @@ MONGO_DETAILS = os.environ.get("mongoURI")
 
 client: AsyncIOMotorClient = None
 database: AsyncIOMotorDatabase = None
+TEST: bool = False
 
-CheckOutCON: AsyncIOMotorCollection = None
-recordsCON: AsyncIOMotorCollection = None
-userCON: AsyncIOMotorCollection = None
 
 async def connect_db():
     global client
-    global database
     client = AsyncIOMotorClient(MONGO_DETAILS)
-    database = client.clover
-    set_tables()
 
 
 async def close_db():
     client.close()
 
 
-# Can refactor later
+def turnDBforTesting():
+    global TEST
+    TEST = True
+
+
+# Can refactor later!!!!
 def get_CheckOutCON():
-    return CheckOutCON
+    database = client.test if TEST else client.clover
+    return database.get_collection("checkedOutBooks")
 
 
 def get_recordsCON():
-    return recordsCON
+    database = client.test if TEST else client.clover
+    return database.get_collection("records")
 
 
 def get_userCON():
-    return userCON
-
-
-def set_tables():
-    if database:
-        global CheckOutCON
-        global recordsCON
-        global userCON
-        CheckOutCON = database.get_collection("checkedOutBooks")
-        recordsCON = database.get_collection("records")
-        userCON = database.get_collection("user")
-    else:
-        raise ValueError("database object is not set")
+    print(TEST)
+    database = client.test if TEST else client.clover
+    return database.get_collection("user")
