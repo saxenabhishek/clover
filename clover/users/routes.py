@@ -25,6 +25,15 @@ async def make_user(deets: User = Depends(hashpass)):
     return {"inserted_id": str(user.inserted_id)}
 
 
+@router.delete("/del_user", status_code=status.HTTP_204_NO_CONTENT)
+async def delete_this_user(deets: User = Depends(hashpass)):
+    if d := await get_userCON().find_one({"name": deets.name, "passw": deets.passw}):
+        user = await get_userCON().delete_one(deets.dict())
+        return
+    else:
+        raise HTTPException(status_code=HTTP_400_BAD_REQUEST, detail="User doesn't exist")
+
+
 class userRes(User):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
 
