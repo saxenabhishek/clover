@@ -1,4 +1,3 @@
-import { useRouter } from "next/router";
 import api from "../../components/api";
 
 export default function A_book(props) {

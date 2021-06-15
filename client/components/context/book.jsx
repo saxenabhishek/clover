@@ -9,9 +9,7 @@ export default function useBook() {
 
 export function Bookprovider(props) {
   const [tra, setTra] = useState({ title: "", book: null, user: null });
-  console.log(useBook);
   function issueBook() {
-      console.log(tra)
     if (tra.book === null || tra.user === null) {
       throw "Can't values not set";
     }
@@ -22,9 +20,9 @@ export function Bookprovider(props) {
       })
       .then((res) => {
         console.log(res.status);
-        let t = tra
-        t["book"] = null
-        setTra(t)
+        let t = tra;
+        t["book"] = null;
+        setTra(t);
       });
   }
   return (

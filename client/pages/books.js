@@ -65,7 +65,7 @@ export default function books() {
     "bg-custRed mx-2 px-2 bg-custBlue3 bg-custRed shawdow-lg rounded-lg";
 
   return (
-    <BasicPage val ={{text:"All Books"}}>
+    <BasicPage val={{ text: "All Books" }}>
       <div className="flex flex-col mx-28 m-10 border-4 border-custWhite bg-custBlue2 text-custBlue p-4 px-8 rounded-3xl font-raleway shadow-xl">
         <p className="font-normal text-2xl">Page : {page}</p>
         <div className="flex flex-wrap">
@@ -89,11 +89,11 @@ export default function books() {
             onClick={() => {
               setPage(page + 1);
             }}
-            >
+          >
             Next
           </button>
         </div>
       </div>
-  </BasicPage>
+    </BasicPage>
   );
 }
