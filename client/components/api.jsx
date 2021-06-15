@@ -1,11 +1,11 @@
 import Axios from "axios";
 
 let urls = {
-  development: "http://localhost:8000/api",
-  production: "",
+  dev: "http://localhost:3000/api",
+  pro: "https://frappe.abhisheksaxenna.xyz/api",
 };
 const api = Axios.create({
-  baseURL: urls["development"],
+  baseURL: urls[process.env.NEXT_PUBLIC_host],
   headers: {
     Accept: "application/json",
     "Content-Type": "application/json",
