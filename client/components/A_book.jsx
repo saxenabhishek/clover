@@ -18,7 +18,6 @@ export default function A_book({ values }) {
     }
   }, []);
   function handelClick() {
-    console.log(b);
     let t = b.tra;
     t.book = values.isbn;
     t.title = values.title;

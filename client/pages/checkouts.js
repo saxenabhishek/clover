@@ -52,9 +52,7 @@ export default function Checkout(prop) {
             const time = new Date(i.when);
             const now = new Date();
             var x = now - time;
-            console.log(x);
             x = ((x / 1000) * 0.002).toFixed(2);
-            console.log(x);
             return (
               <tr key={k} className="">
                 <td className="p-2">{i.name}</td>
@@ -62,12 +60,14 @@ export default function Checkout(prop) {
                 <td className="p-2">{time.toLocaleDateString()}</td>
                 <td className="p-2">{"₹" + x}</td>
                 <td className="p-2">{i._id}</td>
-                <button
-                  onClick={handelClick}
-                  className="bg-custRed p-2 rounded-md m-2 text-custWhite"
-                >
-                  Return
-                </button>
+                <td>
+                  <button
+                    onClick={handelClick}
+                    className="bg-custRed p-2 rounded-md m-2 text-custWhite"
+                  >
+                    Return
+                  </button>
+                </td>
               </tr>
             );
           })}

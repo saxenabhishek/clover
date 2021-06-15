@@ -2,7 +2,7 @@ import Axios from "axios";
 
 let urls = {
   dev: "http://localhost:3000/api",
-  pro: "https://frappe.abhisheksaxenna.xyz/api",
+  pro: "https://frappe.abhisheksaxena.xyz/api",
 };
 const api = Axios.create({
   baseURL: urls[process.env.NEXT_PUBLIC_host],
