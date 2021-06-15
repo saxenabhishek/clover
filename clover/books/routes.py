@@ -3,7 +3,7 @@ from datetime import datetime
 from bson import ObjectId
 from clover.books.frappeAPI import AllBookPages, TisBook
 from clover.mongo.driver import CheckOutCON, recordsCON
-from clover.mongo.models import CheckOut, CheckOut_arr, Record
+from clover.mongo.models import CheckOut, CheckOut_arr, PyObjectId, Record
 from fastapi import APIRouter, HTTPException, status
 from pydantic import BaseModel
 
@@ -15,7 +15,7 @@ tis = TisBook()
 secRate = 0.002
 
 
-@router.get("/")
+@router.get("")
 async def get_books(page: int = 1):
     if len(data := Allpages.get_page(page)) == 0:
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Item not found")
@@ -23,7 +23,7 @@ async def get_books(page: int = 1):
 
 
 @router.get("/ct")
-async def get_money_idea(traId: str):
+async def get_money_idea(traId: PyObjectId):
     if d := await recordsCON.find_one({"_id": ObjectId(traId)}):
         d = Record(**d)
         delta = datetime.now() - d.when
@@ -31,7 +31,6 @@ async def get_money_idea(traId: str):
         cost = secRate * delta.total_seconds()
         return {"Message": {"cost": cost}}
     else:
-        print("hello")
         raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="No transaction found")
 
 

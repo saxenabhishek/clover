@@ -22,10 +22,10 @@ class recRes(Record):
         json_encoders = {ObjectId: str}
 
 
-@router.get("/", response_model=List[recRes])
+@router.get("", response_model=List[recRes])
 async def get_records(completed: Optional[bool] = None, page: int = 0):
     find_args = {}
-    
+
     if completed != None:
         find_args["complete"] = completed
 
