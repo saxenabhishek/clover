@@ -1,4 +1,4 @@
-** Live demo ** https://frappe.abhisheksaxena.xyz/
+**Live demo** https://frappe.abhisheksaxena.xyz/
 
 ## 💡 Project Description
 
